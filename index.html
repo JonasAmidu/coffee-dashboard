@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coffee Quality Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+</head>
+<body>
+  <div id="app">
+    <header class="header">
+      <h1>☕ Coffee Quality Dashboard</h1>
+      <span class="subtitle">Arabica Coffee Explorer — <span id="sample-count-label">1,043 samples</span></span>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar" id="sidebar">
+        <h2>Filters</h2>
+
+        <div class="filter-group">
+          <label for="filter-country">Country</label>
+          <select id="filter-country">
+            <option value="">All Countries</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="filter-processing">Processing Method</label>
+          <select id="filter-processing">
+            <option value="">All Methods</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="filter-variety">Variety</label>
+          <select id="filter-variety">
+            <option value="">All Varieties</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Altitude Range (m)</label>
+          <div class="range-container">
+            <input type="range" id="filter-alt-min" min="0" max="3000" value="0">
+            <input type="range" id="filter-alt-max" min="0" max="3000" value="3000">
+            <span id="alt-range-display">0 — 3000 m</span>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label for="filter-min-score">Min Score: <span id="min-score-display">0</span></label>
+          <input type="range" id="filter-min-score" min="0" max="100" step="0.1" value="0">
+        </div>
+
+        <button id="reset-filters" class="btn-reset">Reset Filters</button>
+      </aside>
+
+      <main class="main-content">
+        <section class="overview-cards" id="overview-cards">
+          <div class="card stat-card">
+            <span class="card-value" id="stat-samples">—</span>
+            <span class="card-label">Total Samples</span>
+          </div>
+          <div class="card stat-card">
+            <span class="card-value" id="stat-avg-score">—</span>
+            <span class="card-label">Avg Score</span>
+          </div>
+          <div class="card stat-card">
+            <span class="card-value" id="stat-countries">—</span>
+            <span class="card-label">Countries</span>
+          </div>
+          <div class="card stat-card">
+            <span class="card-value" id="stat-top-country">—</span>
+            <span class="card-label">Top Country</span>
+          </div>
+        </section>
+
+        <section class="map-section">
+          <h2>🌍 Sample Distribution</h2>
+          <div id="world-map"></div>
+        </section>
+
+        <section class="charts-section">
+          <div class="chart-container radar-container">
+            <h2>🔆 Flavor Radar</h2>
+            <canvas id="radar-chart"></canvas>
+          </div>
+          <div class="chart-container bar-container">
+            <h2>📊 Top Countries by Avg Score</h2>
+            <canvas id="bar-chart"></canvas>
+          </div>
+        </section>
+
+        <section class="table-section">
+          <h2>🏆 Top 20 Coffees</h2>
+          <div class="table-wrapper">
+            <table id="top20-table">
+              <thead>
+                <tr>
+                  <th data-sort="rank">#</th>
+                  <th data-sort="Country.of.Origin">Country</th>
+                  <th data-sort="Farm.Name">Farm / Owner</th>
+                  <th data-sort="Variety">Variety</th>
+                  <th data-sort="Processing.Method">Processing</th>
+                  <th data-sort="altitude_mean_meters">Altitude (m)</th>
+                  <th data-sort="Total.Cup.Points">Total Cup Points</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="app.js"></script>
+</body>
+</html>
